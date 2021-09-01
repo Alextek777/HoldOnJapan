@@ -5,7 +5,7 @@ GameWindow::GameWindow(QWidget* parent) : QWidget(parent)
   for (int i = 0; i < MAPHEIGHT; i++)
     for (int j = 0; j < MAPWIDTH; j++)
     {
-      gameMap[i][j].backgroundId = 5;
+      gameMap[i][j].backgroundId = 8;
     }
   camera.x = 5;
   camera.y = 1;
@@ -45,6 +45,9 @@ QPixmap GameWindow::getBackgroundPixmap(const unsigned int backgroundId)
       break;
     case 7:
       pixmap.load(":/img/images/house1.png");
+      break;
+    case 8:
+      pixmap.load(":/img/images/GrassNoMargins.png");
       break;
     default:
       pixmap.load(":/img/images/emptyCell.png");
@@ -102,7 +105,7 @@ void GameWindow::paintEvent(QPaintEvent* event)
     }
     else if (cellLocalX > rightBoarder)
     {
-      selected.setX(selected.y() - 1);
+      selected.setY(selected.y() - 1);
       screenX += CELL_WIDTH / 2;
       screenY -= CELL_HEIGHT / 2;
     }
@@ -111,7 +114,7 @@ void GameWindow::paintEvent(QPaintEvent* event)
   {
     if (cellLocalX < leftBoarder)
     {
-      selected.setX(selected.y() + 1);
+      selected.setY(selected.y() + 1);
       screenX -= CELL_WIDTH / 2;
       screenY += CELL_HEIGHT / 2;
     }
@@ -123,6 +126,7 @@ void GameWindow::paintEvent(QPaintEvent* event)
     };
   }
 
+  qDebug() << "Selected x : " << selected.x() << " y : " << selected.y();
   // draw a rect
   if (selected.x() >= 0 && selected.y() >= 0 && selected.x() < MAPWIDTH && selected.y() < MAPHEIGHT)
     painter.drawRect(screenX, screenY, CELL_WIDTH, CELL_HEIGHT);
@@ -173,9 +177,9 @@ void GameWindow::mousePressEvent(QMouseEvent* event)
     if (selected.x() >= MAPWIDTH || selected.x() < 0 || selected.y() >= MAPHEIGHT || selected.y() < 0)
       throw("out of range");
     if (event->button() == Qt::LeftButton)
-      gameMap[selected.y()][selected.x()].backgroundId = (gameMap[selected.y()][selected.x()].backgroundId + 1) % 8;
+      gameMap[selected.y()][selected.x()].backgroundId = (gameMap[selected.y()][selected.x()].backgroundId + 1) % 9;
     else
-      gameMap[selected.y()][selected.x()].backgroundId = (gameMap[selected.y()][selected.x()].backgroundId - 1) % 8;
+      gameMap[selected.y()][selected.x()].backgroundId = (gameMap[selected.y()][selected.x()].backgroundId - 1) % 9;
   }
   catch (...)
   {
