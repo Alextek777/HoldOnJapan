@@ -22,7 +22,7 @@ struct Cell
 struct Camera
 {
   unsigned int x, y;
-  float size = 1.0;
+  int size = 1;
 };
 
 class GameWindow : public QWidget

@@ -153,14 +153,14 @@ void GameWindow::keyPressEvent(QKeyEvent* event)
 
 void GameWindow::wheelEvent(QWheelEvent* event)
 {
-  if (camera.size <= 0.5 && event->angleDelta().y() < 0)
-    camera.size = 0.5;
-  else if (camera.size >= 1.5 && event->angleDelta().y() > 0)
-    camera.size = 1.5;
+  if (camera.size <= 1 && event->angleDelta().y() < 0)
+    camera.size = 1;
+  else if (camera.size >= 3 && event->angleDelta().y() > 0)
+    camera.size = 3;
   else if (event->angleDelta().y() > 0)
-    camera.size += 0.1;
+    camera.size += 1;
   else if (event->angleDelta().y() < 0)
-    camera.size -= 0.1;
+    camera.size -= 1;
 
   repaint();
 }
