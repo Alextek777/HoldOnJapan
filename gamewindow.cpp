@@ -68,8 +68,8 @@ void GameWindow::paintEvent(QPaintEvent* event)
       backgroundPixmap =
           backgroundPixmap.scaled(backgroundPixmap.width() * camera.size, backgroundPixmap.height() * camera.size);
 
-      unsigned int xBeg = camera.x * CELL_WIDTH + (x - y) * (CELL_WIDTH / 2);
-      unsigned int yBeg = camera.y * CELL_HEIGHT + (x + y) * (CELL_HEIGHT / 2);
+      unsigned int xBeg = camera.x * CELL_WIDTH * camera.size + (x - y) * (CELL_WIDTH * camera.size / 2);
+      unsigned int yBeg = camera.y * CELL_HEIGHT * camera.size + (x + y) * (CELL_HEIGHT * camera.size / 2);
 
       painter.drawPixmap(xBeg, yBeg - ((backgroundPixmap.height() / CELL_HEIGHT - 1) * CELL_HEIGHT),
                          backgroundPixmap.width(), backgroundPixmap.height(), backgroundPixmap);
