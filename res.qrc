@@ -9,5 +9,6 @@
         <file>images/treeCube1.png</file>
         <file>images/house1.png</file>
         <file>images/GrassNoMargins.png</file>
+        <file>images/towerWithGrass.png</file>
     </qresource>
 </RCC>

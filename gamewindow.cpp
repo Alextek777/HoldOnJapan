@@ -49,6 +49,9 @@ QPixmap GameWindow::getBackgroundPixmap(const unsigned int backgroundId)
     case 8:
       pixmap.load(":/img/images/GrassNoMargins.png");
       break;
+    case 9:
+      pixmap.load(":/img/images/towerWithGrass.png");
+      break;
     default:
       pixmap.load(":/img/images/emptyCell.png");
       break;
@@ -177,9 +180,9 @@ void GameWindow::mousePressEvent(QMouseEvent* event)
     if (selected.x() >= MAPWIDTH || selected.x() < 0 || selected.y() >= MAPHEIGHT || selected.y() < 0)
       throw("out of range");
     if (event->button() == Qt::LeftButton)
-      gameMap[selected.y()][selected.x()].backgroundId = (gameMap[selected.y()][selected.x()].backgroundId + 1) % 9;
+      gameMap[selected.y()][selected.x()].backgroundId = (gameMap[selected.y()][selected.x()].backgroundId + 1) % 10;
     else
-      gameMap[selected.y()][selected.x()].backgroundId = (gameMap[selected.y()][selected.x()].backgroundId - 1) % 9;
+      gameMap[selected.y()][selected.x()].backgroundId = (gameMap[selected.y()][selected.x()].backgroundId - 1) % 10;
   }
   catch (...)
   {
