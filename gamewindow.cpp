@@ -2,6 +2,7 @@
 
 GameWindow::GameWindow(QWidget* parent) : QWidget(parent)
 {
+  setFocus();
   for (int i = 0; i < MAPHEIGHT; i++)
     for (int j = 0; j < MAPWIDTH; j++)
     {
@@ -17,46 +18,15 @@ void GameWindow::drawCell(const unsigned int xPos, const unsigned int yPos)
 {
 }
 
+void GameWindow::setCurrentItemId(unsigned int id)
+{
+  currentItemId = id;
+}
+
 QPixmap GameWindow::getBackgroundPixmap(const unsigned int backgroundId)
 {
-  QPixmap pixmap;
-  switch (backgroundId)
-  {
-    case 0:
-      pixmap.load(":/img/images/emptyCell.png");
-      break;
-    case 1:
-      pixmap.load(":/img/images/grass.png");
-      break;
-    case 2:
-      pixmap.load(":/img/images/tree1.png");
-      break;
-    case 3:
-      pixmap.load(":/img/images/tree2.png");
-      break;
-    case 4:
-      pixmap.load(":/img/images/tree3.png");
-      break;
-    case 5:
-      pixmap.load(":/img/images/grassCube.png");
-      break;
-    case 6:
-      pixmap.load(":/img/images/treeCube1.png");
-      break;
-    case 7:
-      pixmap.load(":/img/images/house1.png");
-      break;
-    case 8:
-      pixmap.load(":/img/images/GrassNoMargins.png");
-      break;
-    case 9:
-      pixmap.load(":/img/images/towerWithGrass.png");
-      break;
-    default:
-      pixmap.load(":/img/images/emptyCell.png");
-      break;
-  }
-  return pixmap;
+  GameHelper::getPixmapByID(backgroundId);
+  return GameHelper::getPixmapByID(backgroundId);
 }
 
 void GameWindow::paintEvent(QPaintEvent* event)
@@ -170,6 +140,7 @@ void GameWindow::wheelEvent(QWheelEvent* event)
 
 void GameWindow::mouseMoveEvent(QMouseEvent* event)
 {
+  setFocus();
   mousePos = event->pos();
   repaint();
 }
@@ -180,9 +151,9 @@ void GameWindow::mousePressEvent(QMouseEvent* event)
     if (selected.x() >= MAPWIDTH || selected.x() < 0 || selected.y() >= MAPHEIGHT || selected.y() < 0)
       throw("out of range");
     if (event->button() == Qt::LeftButton)
-      gameMap[selected.y()][selected.x()].backgroundId = (gameMap[selected.y()][selected.x()].backgroundId + 1) % 10;
+      gameMap[selected.y()][selected.x()].backgroundId = currentItemId;
     else
-      gameMap[selected.y()][selected.x()].backgroundId = (gameMap[selected.y()][selected.x()].backgroundId - 1) % 10;
+      gameMap[selected.y()][selected.x()].backgroundId = 8;
   }
   catch (...)
   {

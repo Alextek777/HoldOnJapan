@@ -46,6 +46,10 @@ private:
   Camera camera;
   QPoint mousePos;
   QPoint selected;
+  unsigned int currentItemId = 0;
+
+public slots:
+  void setCurrentItemId(unsigned int id);
 
 signals:
 };
